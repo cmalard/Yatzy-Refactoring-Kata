@@ -53,8 +53,15 @@ module.exports = {
   twoPairs: sumMultiples(2, 2),
   threeOfAKind: sumMultiples(3),
   fourOfAKind: sumMultiples(4),
-  fullHouse: (...dices: number[]): number =>
-    sumMultiples(2, 1, true)(...dices) + sumMultiples(3, 1, true)(...dices),
+  fullHouse: (...dices: number[]): number => {
+    const sum2 = sumMultiples(2, 1, true)(...dices);
+    if (!sum2) return 0;
+
+    const sum3 = sumMultiples(3, 1, true)(...dices);
+    if (!sum3) return 0;
+
+    return sum2 + sum3;
+  },
 
   smallStraight: straight('1,2,3,4,5'),
   largeStraight: straight('2,3,4,5,6'),
